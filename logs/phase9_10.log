@@ -1,0 +1,87 @@
+split train=1435 val=308 test=307 leak_safe=True
+[teacher] loading MuRIL base (236M) + LoRA r=8 on q,v ...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] [1mBertModel LOAD REPORT[0m from: google/muril-base-cased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.predictions.decoder.bias               | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.decoder.weight             | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+  total=237,853,443 trainable=297,219 (0.125%)
+/home/user/indic-climate-stance-slm/src/training/phase9_lora_kd.py:122: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  losses.append(float(loss))
+    step 12 loss 1.1004 rss 1243.0MB
+    step 24 loss 1.1001 rss 1243.0MB
+    step 36 loss 1.0978 rss 1243.0MB
+  teacher/val: macroF1=0.1824 acc=0.3766 rss=1243.0MB
+  teacher/test: macroF1=0.1828 acc=0.3779 rss=1243.0MB
+[teacher] exporting soft targets for offline KD ...
+  train: probs (1435, 3) rss 1243.0MB
+  val: probs (308, 3) rss 1243.0MB
+  test: probs (307, 3) rss 1243.0MB
+[teacher] freed. rss=1243.0MB
+[student] 4-layer MuRIL + LoRA, mean pooling, no distillation ...
+[transformers] [1mBertModel LOAD REPORT[0m from: google/muril-base-cased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.predictions.decoder.bias               | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.decoder.weight             | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+  total=180,953,859 trainable=100,611
+    step 12 loss 1.0601 rss 1243.0MB
+    step 24 loss 1.1055 rss 1243.0MB
+    step 36 loss 1.0818 rss 1243.0MB
+  student/val: macroF1=0.2590 acc=0.4123 rss=1243.0MB
+  student/test: macroF1=0.2619 acc=0.4137 rss=1243.0MB
+[student-KD] same student, T=2 alpha=0.5 beta=0.5, offline soft targets ...
+[transformers] [1mBertModel LOAD REPORT[0m from: google/muril-base-cased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.predictions.decoder.bias               | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.decoder.weight             | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+    step 12 loss 0.5561 rss 1243.0MB
+    step 24 loss 0.5509 rss 1243.0MB
+    step 36 loss 0.5434 rss 1243.0MB
+  kd/val: macroF1=0.3318 acc=0.4481 rss=1243.0MB
+  kd/test: macroF1=0.3433 acc=0.4658 rss=1243.0MB
+
+=== SUMMARY ===
+teacher_val    macroF1=0.1824 acc=0.3766 F1(F/A/N)=0.547/0.000/0.000
+teacher_test   macroF1=0.1828 acc=0.3779 F1(F/A/N)=0.548/0.000/0.000
+student_val    macroF1=0.2590 acc=0.4123 F1(F/A/N)=0.548/0.000/0.229
+student_test   macroF1=0.2619 acc=0.4137 F1(F/A/N)=0.547/0.000/0.239
+kd_val         macroF1=0.3318 acc=0.4481 F1(F/A/N)=0.479/0.000/0.517
+kd_test        macroF1=0.3433 acc=0.4658 F1(F/A/N)=0.530/0.000/0.500
+params teacher=237,853,443 (trainable 297,219)
+params student=180,953,859 (trainable 100,611)
+KD delta vs no-KD: +0.0814
+peak RSS: 1243.0 MB

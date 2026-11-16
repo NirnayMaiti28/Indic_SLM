@@ -1,0 +1,101 @@
+split 1435/308/307
+[P11] augmentation ablation (budget-matched 36 steps)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] [1mBertModel LOAD REPORT[0m from: google/muril-base-cased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+cls.predictions.decoder.bias               | UNEXPECTED |  | 
+cls.predictions.decoder.weight             | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+/home/user/indic-climate-stance-slm/src/training/phase9_lora_kd.py:122: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  losses.append(float(loss))
+    step 12 loss 1.1027 rss 739.0MB
+    step 24 loss 1.1094 rss 751.0MB
+    step 36 loss 1.0751 rss 771.0MB
+  aug=none/test: macroF1=0.3350 acc=0.4560 rss=891.0MB
+[transformers] [1mBertModel LOAD REPORT[0m from: google/muril-base-cased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+cls.predictions.decoder.bias               | UNEXPECTED |  | 
+cls.predictions.decoder.weight             | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+    step 12 loss 1.0870 rss 891.0MB
+    step 24 loss 1.0948 rss 891.0MB
+    step 36 loss 1.0340 rss 891.0MB
+  aug=char_emoji/test: macroF1=0.3034 acc=0.4267 rss=896.0MB
+[transformers] [1mBertModel LOAD REPORT[0m from: google/muril-base-cased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+cls.predictions.decoder.bias               | UNEXPECTED |  | 
+cls.predictions.decoder.weight             | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+    step 12 loss 1.1056 rss 896.0MB
+    step 24 loss 1.1023 rss 896.0MB
+    step 36 loss 1.0108 rss 896.0MB
+  aug=romanize/test: macroF1=0.2169 acc=0.3941 rss=896.0MB
+[P11] full fine-tuning feasibility measurement
+  full-FT estimate 3806.0 MB > 1900 MB RAM -> not runnable
+[P12] robustness perturbations
+[transformers] [1mBertModel LOAD REPORT[0m from: google/muril-base-cased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+cls.predictions.decoder.bias               | UNEXPECTED |  | 
+cls.predictions.decoder.weight             | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+    step 12 loss 1.0695 rss 896.0MB
+    step 24 loss 1.1033 rss 896.0MB
+    step 36 loss 1.0723 rss 896.0MB
+  clean                  macroF1=0.2629 acc=0.4202
+  char_elongation        macroF1=0.3509 acc=0.4821
+  spacing_noise          macroF1=0.2895 acc=0.4300
+  emoji_suffix           macroF1=0.2918 acc=0.4365
+  hashtag_suffix         macroF1=0.2736 acc=0.4267
+  partial_romanization   macroF1=0.2629 acc=0.4202
+  english_codemix        macroF1=0.2678 acc=0.4202
+  all_noise              macroF1=0.3515 acc=0.4756
+[P13] integrated gradients + occlusion
+Traceback (most recent call last):
+  File "/home/user/indic-climate-stance-slm/src/evaluation/phase11_14.py", line 132, in <module>
+    g=ig(kd,text,pred); o=occ(kd,text,pred)
+      ^^^^^^^^^^^^^^^^
+  File "/home/user/indic-climate-stance-slm/src/evaluation/phase11_14.py", line 102, in ig
+    emb=get_emb(ids)
+        ^^^^^^^^^^^^
+TypeError: BertModel.get_input_embeddings() takes 1 positional argument but 2 were given

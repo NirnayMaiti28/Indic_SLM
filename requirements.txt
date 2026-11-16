@@ -1,0 +1,29 @@
+numpy>=1.26
+pandas>=2.2
+pyarrow>=16.0
+scikit-learn>=1.4
+scipy>=1.11
+PyYAML>=6.0
+matplotlib>=3.8
+seaborn>=0.13
+tqdm>=4.66
+
+# deep learning (installed separately on CPU-only hosts: pip install torch --index-url https://download.pytorch.org/whl/cpu)
+torch>=2.2
+transformers>=4.40
+tokenizers>=0.19
+sentencepiece>=0.2
+datasets>=2.19
+accelerate>=0.30
+peft>=0.10
+
+# explainability / serving / demo
+captum>=0.7
+shap>=0.45
+streamlit>=1.33
+fastapi>=0.110
+uvicorn>=0.29
+
+# testing
+pytest>=8.0
+pytest-cov>=5.0

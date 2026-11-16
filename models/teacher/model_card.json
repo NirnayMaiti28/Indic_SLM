@@ -1,0 +1,63 @@
+{
+  "base_model": "google/muril-base-cased",
+  "adapters": "LoRA r=8, alpha=16, q/v",
+  "trainable_params": 297219,
+  "total_params": 237853443,
+  "pooling": "cls",
+  "test": {
+    "n": 307,
+    "macro_f1": 0.1828,
+    "macro_precision": 0.126,
+    "macro_recall": 0.3333,
+    "weighted_f1": 0.2072,
+    "weighted_precision": 0.1428,
+    "weighted_recall": 0.3779,
+    "accuracy": 0.3779,
+    "balanced_accuracy": 0.3333,
+    "cohen_kappa": 0.0,
+    "per_class": {
+      "FAVOUR": {
+        "precision": 0.3779,
+        "recall": 1.0,
+        "f1": 0.5485,
+        "support": 116
+      },
+      "AGAINST": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 60
+      },
+      "NONE": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 131
+      }
+    },
+    "confusion_matrix": [
+      [
+        116,
+        0,
+        0
+      ],
+      [
+        60,
+        0,
+        0
+      ],
+      [
+        131,
+        0,
+        0
+      ]
+    ],
+    "label_order": [
+      "FAVOUR",
+      "AGAINST",
+      "NONE"
+    ]
+  },
+  "corpus": "GWStance/GWSD (English, derived labels)",
+  "budget_steps": 36
+}

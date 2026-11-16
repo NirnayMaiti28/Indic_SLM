@@ -1,0 +1,106 @@
+# ============================================================
+# indic-climate-stance-slm : master configuration
+# Claim under study:
+#   "Climate change and global warming is a serious concern."
+# Labels: FAVOUR / AGAINST / NONE     Primary metric: macro-F1
+# ============================================================
+
+project:
+  name: indic-climate-stance-slm
+  version: 0.1.0
+  seed: 42
+  claim_hi: "जलवायु परिवर्तन और ग्लोबल वार्मिंग एक गंभीर चिंता का विषय है।"
+  claim_bn: "জলবায়ু পরিবর্তন এবং গ্লোবাল ওয়ার্মিং একটি গুরুতর উদ্বেগের বিষয়।"
+  claim_en: "Climate change and global warming is a serious concern."
+
+paths:
+  data_raw: data/raw
+  data_interim: data/interim
+  data_processed: data/processed
+  data_augmented: data/augmented
+  data_splits: data/splits
+  models_teacher: models/teacher
+  models_student: models/student
+  experiments: experiments
+  reports: reports
+  figures: assets/figures
+
+labels:
+  names: [FAVOUR, AGAINST, NONE]
+  label2id: {FAVOUR: 0, AGAINST: 1, NONE: 2}
+  id2label: {0: FAVOUR, 1: AGAINST, 2: NONE}
+
+datasets:
+  gwstance:
+    local_path: data/raw/gwstance/GWSD.tsv
+    language: en
+    role: reference_baseline_only      # NEVER merged as Hindi/Bengali supervision
+    usable: true
+  dhoroni:
+    local_path: data/raw/dhoroni/dhoroni_train.parquet
+    language: bn
+    role: domain_adaptation_probe_only  # verify stance column before any supervised use
+    usable: pending_schema_verification
+  indic_sentiment:
+    local_path: data/raw/indic_sentiment
+    languages: [hi, bn]
+    role: auxiliary_linguistic_only     # sentiment != stance; never relabelled
+    usable: true
+  custom:
+    local_path: data/raw/custom_climate_dataset
+    languages: [hi, bn]
+    role: primary_supervised_signal
+    usable: pending_collection
+
+preprocessing:
+  variant: minimal            # minimal | enhanced  (A/B compared in Phase 6)
+  unicode_form: NFC
+  lowercase_latin: false      # would destroy MuRIL/XLM-R subword coverage for Indic
+  url_token: "<URL>"
+  mention_token: "<USER>"
+  keep_hashtag_text: true
+  keep_emoji: true
+  collapse_repeats: 3         # "बहुत बहुत बहुत" -> keep up to 3
+  strip_zwj: true
+  keep_negation: true         # hard constraint: never remove negation cues
+
+environment:
+  detected_python: "3.12"
+  default_device: "cuda"      # Auto-detects CUDA; falls back to CPU gracefully
+  gpu_available: true
+
+training:
+  gpu_profile:
+    max_length: 64
+    batch_size: 16
+    grad_accum: 2
+    lr: 2.0e-5
+    epochs: 5
+    fp16: true
+    warmup_ratio: 0.1
+    weight_decay: 0.01
+    max_grad_norm: 1.0
+    early_stopping_patience: 3
+    metric_for_best_model: macro_f1
+    class_weighting: inverse_frequency
+  cpu_profile:
+    max_length: 64
+    batch_size: 8
+    grad_accum: 4
+    lr: 2.0e-5
+    epochs: 3
+    fp16: false
+    early_stopping_patience: 2
+    metric_for_best_model: macro_f1
+    class_weighting: inverse_frequency
+
+distillation:
+  temperature: 2.0
+  alpha: 0.5      # weight on CE
+  beta: 0.5       # weight on T^2 * KL
+  intermediate_loss: false
+
+models:
+  teacher_candidates: [google/muril-base-cased, ai4bharat/IndicBERTv2-MLM-only, xlm-roberta-base]
+  student_candidates: [distilbert-base-multilingual-cased, google/muril-base-cased (layer-pruned), ai4bharat/IndicBERTv2-small]
+  tokenizer_check_required: true

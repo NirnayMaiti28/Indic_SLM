@@ -1,0 +1,121 @@
+{
+  "base_model": "google/muril-base-cased",
+  "layers": 4,
+  "pooling": "mean",
+  "adapters": "LoRA r=8 q/v + head",
+  "trainable_params": 100611,
+  "total_params": 180953859,
+  "distilled": true,
+  "temperature": 2.0,
+  "alpha": 0.5,
+  "beta": 0.5,
+  "test": {
+    "n": 307,
+    "macro_f1": 0.3433,
+    "macro_precision": 0.3169,
+    "macro_recall": 0.3902,
+    "weighted_f1": 0.4135,
+    "weighted_precision": 0.3847,
+    "weighted_recall": 0.4658,
+    "accuracy": 0.4658,
+    "balanced_accuracy": 0.3902,
+    "cohen_kappa": 0.1139,
+    "per_class": {
+      "FAVOUR": {
+        "precision": 0.4301,
+        "recall": 0.6897,
+        "f1": 0.5298,
+        "support": 116
+      },
+      "AGAINST": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 60
+      },
+      "NONE": {
+        "precision": 0.5207,
+        "recall": 0.4809,
+        "f1": 0.5,
+        "support": 131
+      }
+    },
+    "confusion_matrix": [
+      [
+        80,
+        0,
+        36
+      ],
+      [
+        38,
+        0,
+        22
+      ],
+      [
+        68,
+        0,
+        63
+      ]
+    ],
+    "label_order": [
+      "FAVOUR",
+      "AGAINST",
+      "NONE"
+    ]
+  },
+  "no_kd_test": {
+    "n": 307,
+    "macro_f1": 0.2619,
+    "macro_precision": 0.3552,
+    "macro_recall": 0.3587,
+    "weighted_f1": 0.3086,
+    "weighted_precision": 0.4358,
+    "weighted_recall": 0.4137,
+    "accuracy": 0.4137,
+    "balanced_accuracy": 0.3587,
+    "cohen_kappa": 0.0508,
+    "per_class": {
+      "FAVOUR": {
+        "precision": 0.3871,
+        "recall": 0.931,
+        "f1": 0.5468,
+        "support": 116
+      },
+      "AGAINST": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 60
+      },
+      "NONE": {
+        "precision": 0.6786,
+        "recall": 0.145,
+        "f1": 0.239,
+        "support": 131
+      }
+    },
+    "confusion_matrix": [
+      [
+        108,
+        0,
+        8
+      ],
+      [
+        59,
+        0,
+        1
+      ],
+      [
+        112,
+        0,
+        19
+      ]
+    ],
+    "label_order": [
+      "FAVOUR",
+      "AGAINST",
+      "NONE"
+    ]
+  },
+  "budget_steps": 36
+}

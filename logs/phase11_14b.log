@@ -1,0 +1,123 @@
+split 1435/308/307
+[P11] augmentation ablation (budget-matched 36 steps)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] [1mBertModel LOAD REPORT[0m from: google/muril-base-cased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+cls.predictions.decoder.bias               | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.predictions.decoder.weight             | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+/home/user/indic-climate-stance-slm/src/training/phase9_lora_kd.py:122: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  losses.append(float(loss))
+    step 12 loss 1.1275 rss 738.0MB
+    step 24 loss 1.1144 rss 753.0MB
+    step 36 loss 1.0797 rss 767.0MB
+  aug=none/test: macroF1=0.2908 acc=0.4267 rss=896.0MB
+[transformers] [1mBertModel LOAD REPORT[0m from: google/muril-base-cased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+cls.predictions.decoder.bias               | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.predictions.decoder.weight             | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+    step 12 loss 1.0973 rss 896.0MB
+    step 24 loss 1.1038 rss 896.0MB
+    step 36 loss 1.0398 rss 896.0MB
+  aug=char_emoji/test: macroF1=0.1883 acc=0.3811 rss=912.0MB
+[transformers] [1mBertModel LOAD REPORT[0m from: google/muril-base-cased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+cls.predictions.decoder.bias               | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.predictions.decoder.weight             | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+    step 12 loss 1.0951 rss 912.0MB
+    step 24 loss 1.0956 rss 912.0MB
+    step 36 loss 1.0104 rss 912.0MB
+  aug=romanize/test: macroF1=0.2676 acc=0.4202 rss=913.0MB
+[P11] full fine-tuning feasibility measurement
+  full-FT estimate 3806.0 MB > 1900 MB RAM -> not runnable
+[P12] robustness perturbations
+[transformers] [1mBertModel LOAD REPORT[0m from: google/muril-base-cased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+cls.predictions.decoder.bias               | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.predictions.decoder.weight             | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+    step 12 loss 1.0984 rss 913.0MB
+    step 24 loss 1.1189 rss 913.0MB
+    step 36 loss 1.0771 rss 913.0MB
+  clean                  macroF1=0.1828 acc=0.3779
+  char_elongation        macroF1=0.1828 acc=0.3779
+  spacing_noise          macroF1=0.1833 acc=0.3779
+  emoji_suffix           macroF1=0.1828 acc=0.3779
+  hashtag_suffix         macroF1=0.1828 acc=0.3779
+  partial_romanization   macroF1=0.1828 acc=0.3779
+  english_codemix        macroF1=0.1828 acc=0.3779
+  all_noise              macroF1=0.1828 acc=0.3779
+[P13] integrated gradients + occlusion
+   IG failed: TypeError BertModel.get_input_embeddings() takes 1 positional argument but 2 were given
+  FAVOUR  0.399 जलवायु परिवर्तन एक गंभीर समस्या है।          IG=['n/a']
+   IG failed: TypeError BertModel.get_input_embeddings() takes 1 positional argument but 2 were given
+  FAVOUR  0.401 ग्लोबल वार्मिंग कोई गंभीर समस्या नहीं है।    IG=['n/a']
+   IG failed: TypeError BertModel.get_input_embeddings() takes 1 positional argument but 2 were given
+  FAVOUR  0.398 জলবায়ু পরিবর্তন একটি গুরুতর উদ্বেগের বিষয়। IG=['n/a']
+   IG failed: TypeError BertModel.get_input_embeddings() takes 1 positional argument but 2 were given
+  FAVOUR  0.391 জলবায়ু পরিবর্তন কোনো গুরুতর সমস্যা নয়।     IG=['n/a']
+   IG failed: TypeError BertModel.get_input_embeddings() takes 1 positional argument but 2 were given
+  FAVOUR  0.401 सरकार की जलवायु नीति बिल्कुल फेल है, पैसा बर IG=['n/a']
+   IG failed: TypeError BertModel.get_input_embeddings() takes 1 positional argument but 2 were given
+  FAVOUR  0.394 climate change koi serious problem nahi hai  IG=['n/a']
+[P14] efficiency: params, storage, latency, throughput, INT8
+/home/user/indic-climate-stance-slm/src/evaluation/phase11_14.py:177: DeprecationWarning: torch.ao.quantization is deprecated and will be removed in 2.10. 
+For migrations of users: 
+1. Eager mode quantization (torch.ao.quantization.quantize, torch.ao.quantization.quantize_dynamic), please migrate to use torchao eager mode quantize_ API instead 
+2. FX graph mode quantization (torch.ao.quantization.quantize_fx.prepare_fx,torch.ao.quantization.quantize_fx.convert_fx, please migrate to use torchao pt2e quantization API instead (prepare_pt2e, convert_pt2e) 
+3. pt2e quantization has been migrated to torchao (https://github.com/pytorch/ao/tree/main/torchao/quantization/pt2e) 
+see https://github.com/pytorch/ao/issues/2259 for more details
+  q=torch.quantization.quantize_dynamic(kd.eval(),{torch.nn.Linear},dtype=torch.qint8)
+/home/user/.local/lib/python3.12/site-packages/torch/ao/nn/quantized/modules/utils.py:72: UserWarning: torch.quantize_per_tensor, torch.quantize_per_channel and other quantized tensor creation functions that produce tensors with dtype torch.quint8, torch.qint8, and torch.qint32 are deprecated and will be removed in a future PyTorch release. Please see https://github.com/pytorch/pytorch/issues/184982 for more information. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/quantized/Quantizer.cpp:111.)
+  qweight = torch.quantize_per_tensor(
+{
+ "student_params": 180953859,
+ "p50": 16.11,
+ "p95": 18.72,
+ "thr8": 210.34,
+ "int8": "fail"
+}
+WROTE phase11_14_results.json peak 1704.0

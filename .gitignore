@@ -1,0 +1,60 @@
+# data
+data/raw/**
+!data/raw/**/.gitkeep
+data/interim/*
+!data/interim/.gitkeep
+data/augmented/*
+!data/augmented/.gitkeep
+
+# Track processed dataset & splits
+!data/processed/indic_climate_dataset.json
+!data/processed/.gitkeep
+!data/splits/indic_climate_splits.json
+!data/splits/gwstance_group_stratified.json
+!data/splits/.gitkeep
+
+# models (track lightweight LoRA adapters and model cards)
+models/teacher/*
+models/student/*
+!models/teacher/.gitkeep
+!models/student/.gitkeep
+!models/student/*.pt
+!models/student/*.json
+!models/student/*.md
+!models/teacher/*.pt
+!models/teacher/*.json
+!models/teacher/*.md
+
+# frontend
+frontend/node_modules/
+!frontend/dist/**
+
+# experiment artefacts (registry.csv IS tracked)
+experiments/results/*
+!experiments/results/.gitkeep
+experiments/configurations/*.local.yaml
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+/dist/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# notebooks
+.ipynb_checkpoints/
+
+# os / editor
+.DS_Store
+.idea/
+.vscode/
+
+# secrets
+.env
+*.key
